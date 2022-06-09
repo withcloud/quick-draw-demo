@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Drawing</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/web_icon.svg">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/3.12.0/tf.min.js"></script>
+</head>
+
+<body>
+    <!-- 開始頁面 -->
+    <div id='main' style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
+       <div id='main_title' class="main_title web" >你猜我畫</div>
+        <img class='frame' id='non_intractive' src=assets/frame.svg></img>
+         <div id='main_button' class="main_button">
+             <button onclick="language_game(1)">中文</button>
+             <button onclick="language_game(2)">english</button>
+             <button onclick="language_game(3)">portugues</button>
+         </div>
+    </div>
+
+    <!-- 中文簡介 -->
+    <div id='introduction_chinese' class="introduction"  >
+        <div style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
+            <div id='main_title' class="main_title web" >中文</div>
+            <div id='main_button' class="main_button" style="justify-content: center;">
+                <button class='introduction_start' onclick="language_start()">開始</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 英文簡介 -->
+    <div id='introduction_english' class="introduction">
+        <div  style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
+            <div id='main_title' class="main_title web">English</div>
+            <div id='main_button' class="main_button" style="justify-content: center;">
+                <button class='introduction_start' onclick="language_start()">開始</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 葡文簡介 -->
+    <div id='introduction_portuguese' class="introduction">
+        <div  style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
+            <div id='main_title' class="main_title web" >Portugues</div>
+            <div id='main_button' class="main_button" style="justify-content: center;">
+                <button class='introduction_start' onclick="language_start()">開始</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 輸入PIN嗎頁面 -->
+    <div id='pin_code' class="pin_code" style='display: none;'>
+        <div  style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
+            <div id='main_title' class="main_title web" >
+                <input class="pin_input" type="text" placeholder="pin" />
+            </div>
+            <div id='main_button' class="main_button" style="justify-content: center;">
+                <button class='pin_code_start' onclick="if (typeof toggle_round_card!== 'undefined') toggle_round_card(true)">直接開始</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 卡片頁面 -->
+    <div id='round-card' class="cover invisible">
+
+        <div class='column' style="width: 100%; height: fit-content;align-items: center;">
+
+            <div class='text' style="font-size:50px;margin-bottom: 17px;">
+                Draw
+            </div>
+            <div id='desired_drawing' class='text' style="font-size:120px">
+                Cat
+            </div>
+            <div class='text' style="font-size:40px;margin-top:17px;">
+                Under 20 Seconds :)
+            </div>
+            <div id='start-btn' class='mainButton start' style="margin-top:52px;" onclick="toggle_game_canvas()">
+                開始（5）
+            </div>
+        </div>
+        <!-- <div id='counter' class='text'
+            style='position: absolute;width:fit-content;height:fit-content; line-height: 100%;bottom:15px;left:50%;transform: translateX(-50%);'>
+            0/6</div> -->
+    </div>
+
+    <!-- 資訊頁面 -->
+    <div id='about' class='cover about invisible'>
+        <div class='button' style="
+            display: flex;
+            position: absolute;
+            justify-content: center;
+            right:0;
+            flex-wrap: wrap;
+            margin-right:15px;
+            margin-top:15px;
+            " onclick="toggle_about()">
+            <img src="assets/exit.svg" id="non_intractive"></img>
+        </div>
+
+        <div class='column' style='width:100%;
+        height:100%;
+        user-select:text;
+        justify-content: initial;
+        
+        '>
+            <div class='text' style="
+            height:fit-content; 
+            font-size:50px;
+            margin-top: 84px;
+            margin-bottom: 45px;
+            flex-direction: unset;
+            ">
+                About This Website
+            </div>
+
+            <div class='text' style='
+            width:60%;  
+            height:fit-content; 
+            margin-left:auto;
+            margin-right:auto;
+            margin-bottom: 138px;
+            line-height: 43px;
+
+            font-family: "niceFont";
+            font-size: 37px;
+            flex-direction: unset;
+            display: inline;
+            user-select:text;
+            '>
+                Artificial intelligence is used in the website to predict what you are drawing. An
+                implementation of the Convolutional Neural Network in Javascript. It takes an image and predicts a
+                number that represents a guess at what the image looks like.
+                <br><br>
+                The network was trained on 150 different concepts from <a class="link"
+                    href="https://quickdraw.withgoogle.com/data">Quick
+                    Draw Data</a> using Python with the TensorFlow
+                library, and the network was implemented in Javascript using TensorFlow.
+                <br><br>
+                <br>
+                The network has 28x28 image input [grayscaled and thresholded image, two values in the image 0=black,
+                1=white].
+                <br><br>
+                The recognition error on the test data set is 11% and the accuracy is 72.5%.
+                <br><br>
+                <br>
+                <br>
+                The website was created by Yousef Mahmood, and my sole purpose was to have fun. It was hugely inspired
+                by the game <a class="link" href="https://quickdraw.withgoogle.com">Quick Draw</a>.
+            </div>
+        </div>
+    </div>
+
+    <!-- 遊戲頁面 -->
+    <div id='game-canvas' class='game-canvas'>
+        
+        <canvas id='canvas'></canvas>
+        <!-- <canvas id='outcanvas' style='background:rgb(255, 186, 186)'></canvas> -->
+        
+        <div id='label' class="label">
+            <div id='inner_desired_drawing' class='text' style='left: 37px;width:30%'>
+                Draw: Cat
+            </div>
+
+            <div class='timerBox'>
+                <p id='timer'>0:30</p>
+            </div>
+
+            <div class='row'>
+                <p style='color:white;font-size:30px;margin:auto 40px;'>分數：<span id='fraction'>0</span></p></div>
+            </div>
+
+        </div>
+
+        <div id='prediction' style="color:red;z-index:-10;">...</div>
+    </div>
+
+    <!-- 結束頁面 -->
+    <div id='end-card' style='display: none;' >
+        <div style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
+            <p class="endP">完了!</p>
+            <p class="endP" style="top:30% ;">總分數：<span id='totalScore'>0</span></p>
+            <div id='endButton' class="endButton web" onclick="again()">再來！（10）</div>
+        </div>
+    </div>
+
+    <script defer type="text/javascript">
+        async function load_model() {
+            model = await tf.loadLayersModel('./tf_model/model.json');
+            //To warmup the model
+            const warmupResult = model.predict(tf.zeros([1, 28, 28, 1]));
+            warmupResult.dataSync();
+            warmupResult.dispose();
+        }
+        var model;
+        var labels;
+
+        $.getJSON("./labels.json", function (raw_labels) {
+            labels = raw_labels
+        });
+        load_model()
+
+    </script>
+    <script defer src="scripts/rdp.js"></script>
+    <script defer src="scripts/draw.js"></script>
+    <script defer src="scripts/transition.js"></script>
+
+</body>
+
+</html>

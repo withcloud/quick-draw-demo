@@ -2,6 +2,17 @@
 const HOST = "http://127.0.0.1:3000"; //指定服務端口
 let pinInput = ""; // pin碼值
 let local_user = {};// pin對象
+const scoresData = [];
+
+const items = [
+    "數據科學",
+    "謎",
+    "機器都識學習",
+    "你畫我猜",
+    "5G的速度",
+    "姿勢捕捉",
+    "聲音中的喜怒哀樂",
+];
 
 const pages = {
     "main": 1,
@@ -67,6 +78,10 @@ function toggle_round_card(onlyOpen = false) {
             window.option = 0//清空題目
             prediction_label.style.zIndex = 0 //猜測樣式降級
             drawing_history = []//清空歷史繪畫
+
+            createScore() // 建立分數
+            getAllScores() // 顯示成績
+            $("#showPinLabel").text(pinInput); // 顯示pin碼
 
             // 結束頁面倒計時
             window.endCarNum = 10
@@ -144,32 +159,33 @@ function enter_main() {//回車進入遊戲 清除繪畫歷史
 
 // 重新開始遊戲
 function again() {
-    var end_card = document.getElementById('end-card')
-    var main = document.getElementById('main')
-    var fraction = document.getElementById('fraction');
-    var prediction = document.getElementById('prediction');
-    chinese = document.getElementById('introduction_chinese')
-    english = document.getElementById('introduction_english')
-    portuguese = document.getElementById('introduction_portuguese')
-    pin_code = document.getElementById('pin_code')
-    active_page = pages.main;//設置當前頁面
-    main.style.display = 'block'
-    end_card.style.display = 'none'
-    clearInterval(window.endCarTimer) //清除結束頁面倒計時
-    window.fractionNumber = 0 //重置得分
-    fraction.textContent = window.fractionNumber
-    prediction.style.zIndex = -10
+    window.location.reload();//重新加載會有閃爍現象
+    // var end_card = document.getElementById('end-card')
+    // var main = document.getElementById('main')
+    // var fraction = document.getElementById('fraction');
+    // var prediction = document.getElementById('prediction');
+    // chinese = document.getElementById('introduction_chinese')
+    // english = document.getElementById('introduction_english')
+    // portuguese = document.getElementById('introduction_portuguese')
+    // pin_code = document.getElementById('pin_code')
+    // active_page = pages.main;//設置當前頁面
+    // main.style.display = 'block'
+    // end_card.style.display = 'none'
+    // clearInterval(window.endCarTimer) //清除結束頁面倒計時
+    // window.fractionNumber = 0 //重置得分
+    // fraction.textContent = window.fractionNumber
+    // prediction.style.zIndex = -10
 
-    chinese.style.display = 'none'
-    english.style.display = 'none'
-    portuguese.style.display = 'none'
-    clearInterval(window.languageCarTimer) //清除語言頁面倒計時
+    // chinese.style.display = 'none'
+    // english.style.display = 'none'
+    // portuguese.style.display = 'none'
+    // clearInterval(window.languageCarTimer) //清除語言頁面倒計時
 
-    pin_code.style.display = 'none'
+    // pin_code.style.display = 'none'
 
-    // 清空pin碼
-    pinInput = ''
-    local_user = {}
+    // // 清空pin碼
+    // pinInput = ''
+    // local_user = {}
 }
 
 // 選擇語言
@@ -222,9 +238,6 @@ function language_start() {
     pin_code.style.display = 'block'
     clearInterval(window.languageCarTimer) //清除語言頁面倒計時
 }
-
-
-
 
 let pinKeyboardIsOpen = false;// 鍵盤開關
 
@@ -348,5 +361,102 @@ const newStart = async () => {//pin新身份開始  建立用戶
             showHideTransition: "fade",
             icon: "error",
         });
+    }
+};
+
+const getAllScores = async () => {
+    try {
+        const data = await fetch(
+            `${HOST}/api/user/all_scores?pin=${pinInput}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        ).then((res) => res.json());
+        console.log('成績數據', data)
+        if (data.error) {
+            throw new Error(data.error);
+        } else {
+            data.forEach((item) => {
+                scoresData.push({
+                    id: item.id,
+                    itemName: item.itemName,
+                    score: item.score,
+                });
+            });
+
+            // 基于准备好的dom，初始化echarts实例
+            $("#eChartsMain").ready(() => {
+                const myChart = echarts.init(
+                    document.getElementById("eChartsMain")
+                );
+
+                // 指定图表的配置项和数据
+                const option = {
+                    title: {
+                        text: "遊戲得分圖",
+                    },
+                    radar: {
+                        indicator: items.map((item) => {
+                            return {
+                                name: item,
+                                max: 100,
+                            };
+                        }),
+                    },
+                    series: [
+                        {
+                            // name: "得分",
+                            type: "radar",
+                            data: [
+                                {
+                                    value: items.map((item) => {
+                                        const scores = scoresData.filter((s) => {
+                                            return s.itemName === item;
+                                        });
+                                        const score = _.maxBy(scores, "score");
+
+                                        return score?.score || 0;
+                                    }),
+                                    name: "各項遊戲得分得分",
+                                },
+                            ],
+                        },
+                    ],
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            });
+        }
+    } catch (error) {
+        console.error("發生錯誤:", error);
+        // 顯示在 toast
+        // toast.error(error.message);
+    }
+};
+
+// 建立用戶分數
+const createScore = async () => {
+
+    try {
+        const body = {
+            score: window.fractionNumber,
+            pin: pinInput,
+            itemName: "你畫我猜",
+        };
+
+        const result = await fetch(`${HOST}/api/score/create`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        }).then((res) => res.json());
+        console.log('創建的成績結果', result)
+    } catch (error) {
+        console.error("發生錯誤:", error);
     }
 };

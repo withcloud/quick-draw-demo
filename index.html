@@ -4,19 +4,26 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drawing</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style_globle.css">
+    <link rel="stylesheet" href="css/jquery.toast.min.css">
     <link rel="icon" href="assets/web_icon.svg">
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/3.12.0/tf.min.js"></script>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript"  src="scripts/jquery.toast.min.js"></script>
+
 </head>
 
 <body>
     <!-- 開始頁面 -->
     <div id='main' style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
        <div id='main_title' class="main_title web" >你猜我畫</div>
-        <img class='frame' id='non_intractive' src=assets/frame.svg></img>
+        <img class='frame' id='non_intractive' src=assets/frame.svg alt=""></img>
          <div id='main_button' class="main_button">
              <button onclick="language_game(1)">中文</button>
              <button onclick="language_game(2)">english</button>
@@ -57,12 +64,123 @@
     <!-- 輸入PIN嗎頁面 -->
     <div id='pin_code' class="pin_code" style='display: none;'>
         <div  style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
-            <div id='main_title' class="main_title web" >
-                <input class="pin_input" type="text" placeholder="pin" />
+          <div
+            class="w-full h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+          >
+            <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="mb-4">
+                  <div class="flex justify-center">
+                    <label
+                      class="block text-gray-700 font-medium mb-2 text-lg"
+                      for="pinInput"
+                    >
+                      輸入你的PIN碼
+                    </label>
+                  </div>
+                  <input
+                    id="pinInput"
+                    class="h-16 text-5xl text-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-gray-300"
+                    type="text"
+                    value=""
+                  />
+                  <div id="pinKeyboard" class="mt-3 grid grid-cols-3 gap-1 hidden">
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      1
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      2
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      3
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      4
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      5
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      6
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      7
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      8
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      9
+                    </button>
+                    <button
+                      class="bg-rose-500 h-10 hover:bg-rose-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      重置
+                    </button>
+                    <button
+                      class="bg-teal-500 h-10 hover:bg-teal-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      0
+                    </button>
+                    <button
+                      class="bg-sky-500 h-10 hover:bg-sky-800 rounded-md m-0.5 text-white text-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                      關閉
+                    </button>
+                  </div>
+                </div>
+    
+                <div class="flex items-center justify-center">
+                  <button
+                    id="pinStartBtn"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline h-12 text-xl"
+                    type="button"
+                  >
+                    開始遊戲
+                  </button>
+                </div>
+              </div>
             </div>
-            <div id='main_button' class="main_button" style="justify-content: center;">
-                <button class='pin_code_start' onclick="if (typeof toggle_round_card!== 'undefined') toggle_round_card(true)">直接開始</button>
+            <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
+              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="flex justify-center">
+                  <label
+                    class="block text-gray-700 font-medium mb-2 text-lg"
+                    htmlFor="username"
+                  >
+                    或是以新的用戶身份
+                  </label>
+                </div>
+                <div class="flex items-center justify-center">
+                  <button
+                    id="startDirectlyBtn"
+                    class="bg-blue-500 disabled:bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline h-12 text-xl"
+                    type="button"
+                  >
+                    開始遊戲
+                  </button>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
     </div>
 
@@ -89,73 +207,7 @@
             0/6</div> -->
     </div>
 
-    <!-- 資訊頁面 -->
-    <div id='about' class='cover about invisible'>
-        <div class='button' style="
-            display: flex;
-            position: absolute;
-            justify-content: center;
-            right:0;
-            flex-wrap: wrap;
-            margin-right:15px;
-            margin-top:15px;
-            " onclick="toggle_about()">
-            <img src="assets/exit.svg" id="non_intractive"></img>
-        </div>
-
-        <div class='column' style='width:100%;
-        height:100%;
-        user-select:text;
-        justify-content: initial;
-        
-        '>
-            <div class='text' style="
-            height:fit-content; 
-            font-size:50px;
-            margin-top: 84px;
-            margin-bottom: 45px;
-            flex-direction: unset;
-            ">
-                About This Website
-            </div>
-
-            <div class='text' style='
-            width:60%;  
-            height:fit-content; 
-            margin-left:auto;
-            margin-right:auto;
-            margin-bottom: 138px;
-            line-height: 43px;
-
-            font-family: "niceFont";
-            font-size: 37px;
-            flex-direction: unset;
-            display: inline;
-            user-select:text;
-            '>
-                Artificial intelligence is used in the website to predict what you are drawing. An
-                implementation of the Convolutional Neural Network in Javascript. It takes an image and predicts a
-                number that represents a guess at what the image looks like.
-                <br><br>
-                The network was trained on 150 different concepts from <a class="link"
-                    href="https://quickdraw.withgoogle.com/data">Quick
-                    Draw Data</a> using Python with the TensorFlow
-                library, and the network was implemented in Javascript using TensorFlow.
-                <br><br>
-                <br>
-                The network has 28x28 image input [grayscaled and thresholded image, two values in the image 0=black,
-                1=white].
-                <br><br>
-                The recognition error on the test data set is 11% and the accuracy is 72.5%.
-                <br><br>
-                <br>
-                <br>
-                The website was created by Yousef Mahmood, and my sole purpose was to have fun. It was hugely inspired
-                by the game <a class="link" href="https://quickdraw.withgoogle.com">Quick Draw</a>.
-            </div>
-        </div>
-    </div>
-
+    
     <!-- 遊戲頁面 -->
     <div id='game-canvas' class='game-canvas'>
         

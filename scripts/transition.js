@@ -1,5 +1,7 @@
-
-start_button = document.getElementById('mainButton')
+// 網絡地址
+const HOST = "http://127.0.0.1:3000"; //指定服務端口
+let pinInput = ""; // pin碼值
+let local_user = {};// pin對象
 
 const pages = {
     "main": 1,
@@ -164,6 +166,10 @@ function again() {
     clearInterval(window.languageCarTimer) //清除語言頁面倒計時
 
     pin_code.style.display = 'none'
+
+    // 清空pin碼
+    pinInput = ''
+    local_user = {}
 }
 
 // 選擇語言
@@ -201,9 +207,146 @@ function language_game(number) {
     }, 1000)
 }
 
+const setDisabled = (elementId, bool = false) => {
+    if (elementId) {
+        if (bool) {
+            $(`#${elementId}`).prop("disable", true);
+        } else {
+            $(`#${elementId}`).prop("disable", false);
+        }
+    }
+};
 
 function language_start() {
     pin_code = document.getElementById('pin_code')
     pin_code.style.display = 'block'
     clearInterval(window.languageCarTimer) //清除語言頁面倒計時
 }
+
+
+
+
+let pinKeyboardIsOpen = false;// 鍵盤開關
+
+const pinChange = (inputValue, isReset = false) => {
+    if (isReset === true) {
+        pinInput = "";
+    } else pinInput + inputValue;
+};
+
+const setKeyboardOpen = (bool = false) => { // 控制鍵盤
+    if (bool) {
+        pinKeyboardIsOpen = true;
+        $("#pinKeyboard").removeClass("hidden");
+    } else {
+        pinKeyboardIsOpen = false;
+        $("#pinKeyboard").addClass("hidden");
+    }
+};
+
+$("#pinInput").focus(() => { //pin嗎輸入事件
+    if (!pinKeyboardIsOpen) {
+        setKeyboardOpen(true);
+    }
+});
+
+$("#pinStartBtn").click(() => {//pin開始
+    userStart();
+});
+
+$("#startDirectlyBtn").click(() => {//pin新身份開始
+    newStart();
+});
+
+for (let index = 1; index <= 12; index++) { // 給小鍵盤所有按鈕賦值
+    if (index === 10) {
+        $(`#pinKeyboard button:nth-child(${index})`).click(() => {//重置事件
+            $("#pinInput").val((pinInput = ""));
+        });
+    }
+    if (index === 11) {
+        $(`#pinKeyboard button:nth-child(${index})`).click(() => {//零數字事件
+            $("#pinInput").val((pinInput += "0"));
+        });
+    }
+    if (index === 12) {
+        $(`#pinKeyboard button:nth-child(${index})`).click(() => {//鍵盤關閉事件
+            if (pinKeyboardIsOpen) {
+                setKeyboardOpen();
+            }
+        });
+    }
+    if (index !== 10 && index !== 11 && index !== 12) {
+        $(`#pinKeyboard button:nth-child(${index})`).click(() => {//1-9數字事件
+            $("#pinInput").val((pinInput += index));
+        });
+    }
+}
+
+const userStart = async () => {//pin開始事件
+
+    // 獲取用戶
+    try {
+        const data = await fetch(`${HOST}/api/user/get?pin=${pinInput}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res) => res.json());
+        console.log(data)
+        if (!data || !data?.id) {
+            console.log('data error ')
+            $.toast({
+                heading: "Error",
+                text: "找不到該用戶",
+                showHideTransition: "fade",
+                icon: "error",
+            });
+        } else {
+            toggle_round_card() // 找到用戶 進入遊戲
+        }
+    } catch (error) {
+        console.log('catch error ')
+        $.toast({
+            heading: "Error",
+            text: error.message,
+            showHideTransition: "fade",
+            icon: "error",
+        });
+        console.error(error.message);
+    }
+};
+
+const newStart = async () => {//pin新身份開始  建立用戶
+
+    try {
+        const user = await fetch(`${HOST}/api/user/create`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res) => res.json());
+
+        if (user.error) {
+            console.log('user error ')
+            throw new Error(user.error);
+        } else {
+            local_user = user;
+            if (local_user) {
+                pinInput = local_user.pin;
+                console.log('user pin', pinInput)
+            }
+            toggle_round_card() // 進入遊戲
+        }
+
+    } catch (error) {
+        console.log('catch error ')
+        // 顯示在 toast
+        $.toast({
+            heading: "Error",
+            text: error.message,
+            showHideTransition: "fade",
+            icon: "error",
+        });
+    }
+};

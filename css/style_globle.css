@@ -1,11 +1,3 @@
-@font-face {
-  font-family: "doodleFont";
-  src: url("assets/KgSecondChancesSketch-KpAp.ttf") format("truetype");
-}
-@font-face {
-  font-family: "niceFont";
-  src: url("assets/BenchNine-Regular.ttf") format("truetype");
-}
 html,
 body {
   margin: 0;
@@ -140,14 +132,12 @@ body {
 
 #main_button{
   width: 892px;
-  height: 202px;
 
   position: absolute;
   top:90%;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  line-height: 202px;
   font-size: 69px;
 
   display: flex;
@@ -155,15 +145,16 @@ body {
   justify-content: space-between;
 }
 
-.main_button>button{
+.main_button button{
   background: #00c0a3;
   color: rgb(255, 255, 255);
-  padding:1rem ;
   font-size: 20px;
   border-radius: 101px;
   border:none;
   width:200px;
   cursor: pointer;
+  height: 50px;
+  line-height: 50px;
 }
 
 .pin_input{

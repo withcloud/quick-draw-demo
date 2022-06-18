@@ -80,7 +80,7 @@ function toggle_round_card(onlyOpen = false) {
             drawing_history = []//清空歷史繪畫
 
             createScore() // 建立分數
-            getAllScores() // 顯示成績
+
             $("#showPinLabel").text(pinInput); // 顯示pin碼
 
             // 結束頁面倒計時
@@ -364,6 +364,31 @@ const newStart = async () => {//pin新身份開始  建立用戶
     }
 };
 
+// 建立用戶分數
+const createScore = async () => {
+
+    try {
+        const body = {
+            score: window.fractionNumber,
+            pin: pinInput,
+            itemName: "你畫我猜",
+        };
+
+        const result = await fetch(`${HOST}/api/score/create`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        }).then((res) => res.json());
+        console.log('創建的成績結果', result)
+
+        getAllScores(); // 獲得所有分數
+    } catch (error) {
+        console.error("發生錯誤:", error);
+    }
+};
+
 const getAllScores = async () => {
     try {
         const data = await fetch(
@@ -438,25 +463,4 @@ const getAllScores = async () => {
     }
 };
 
-// 建立用戶分數
-const createScore = async () => {
 
-    try {
-        const body = {
-            score: window.fractionNumber,
-            pin: pinInput,
-            itemName: "你畫我猜",
-        };
-
-        const result = await fetch(`${HOST}/api/score/create`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        }).then((res) => res.json());
-        console.log('創建的成績結果', result)
-    } catch (error) {
-        console.error("發生錯誤:", error);
-    }
-};

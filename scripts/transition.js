@@ -3,6 +3,7 @@ const HOST = "http://127.0.0.1:3000"; //指定服務端口
 let pinInput = ""; // pin碼值
 let local_user = {};// pin對象
 const scoresData = [];
+// window.fractionNumber = 0； // 遊戲得分
 
 const items = [
     "數據科學",
@@ -79,8 +80,9 @@ function toggle_round_card(onlyOpen = false) {
             prediction_label.style.zIndex = 0 //猜測樣式降級
             drawing_history = []//清空歷史繪畫
 
-            createScore() // 建立分數
-
+            //顯示總分
+            $('#totalScore').text(`${window.fractionNumber}`)
+            createScore(); // 建立分數
             $("#showPinLabel").text(pinInput); // 顯示pin碼
 
             // 結束頁面倒計時
@@ -368,6 +370,7 @@ const newStart = async () => {//pin新身份開始  建立用戶
 const createScore = async () => {
 
     try {
+        console.log('遊戲所得分數：', window.fractionNumber || 0)
         const body = {
             score: window.fractionNumber,
             pin: pinInput,
@@ -427,7 +430,7 @@ const getAllScores = async () => {
                         indicator: items.map((item) => {
                             return {
                                 name: item,
-                                max: 100,
+                                max: 600,
                             };
                         }),
                     },

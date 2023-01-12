@@ -110,7 +110,7 @@ function toggle_round_card(onlyOpen = false) {
         }
 
         setTimeout(function () {
-            inner_desired_drawing_txt.textContent = 'Draw: ' + labels[drawing_index];
+            inner_desired_drawing_txt.textContent = '畫出: ' + labels[drawing_index];
 
             init()
             stop_drawing() //遊戲結束計時

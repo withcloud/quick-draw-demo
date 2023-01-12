@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Drawing</title>
+    <title>你猜我猜</title>
     <link rel="stylesheet" href="css/style_globle.css">
     <link rel="stylesheet" href="css/jquery.toast.min.css">
     <link rel="icon" href="assets/web_icon.svg">
@@ -18,7 +18,6 @@
     <script type="text/javascript"  src="scripts/jquery.toast.min.js"></script>
     <script type="text/javascript"  src="scripts/echarts.js"></script>
     <script type="text/javascript"  src="scripts/lodash.min.js"></script>
-
 </head>
 
 <body>
@@ -192,13 +191,13 @@
         <div class='column' style="width: 100%; height: fit-content;align-items: center;">
 
             <div class='text' style="font-size:50px;margin-bottom: 17px;">
-                Draw
+                畫出
             </div>
             <div id='desired_drawing' class='text' style="font-size:120px">
-                Cat
+                時鐘
             </div>
             <div class='text' style="font-size:40px;margin-top:17px;">
-                Under 20 Seconds :)
+                繪畫時間 20 秒
             </div>
             <div id='start-btn' class='mainButton start' style="margin-top:52px;" onclick="toggle_game_canvas()">
                 開始（5）
@@ -208,30 +207,47 @@
             style='position: absolute;width:fit-content;height:fit-content; line-height: 100%;bottom:15px;left:50%;transform: translateX(-50%);'>
             0/6</div> -->
     </div>
-
     
     <!-- 遊戲頁面 -->
-    <div id='game-canvas' class='game-canvas'>
-        
-        <canvas id='canvas'></canvas>
-        <!-- <canvas id='outcanvas' style='background:rgb(255, 186, 186)'></canvas> -->
-        
-        <div id='label' class="label">
-            <div id='inner_desired_drawing' class='text' style='left: 37px;width:30%'>
-                Draw: Cat
+    <div id='game-canvas' class='game-canvas' style='display: none;' >
+      <div class="game-canvas-content" >
+        <div class="game-canvas-content-clip">
+            <img src="./image/clip.png" alt=""/>
+            <img src="./image/clip.png" alt=""/>
+         </div>
+          <div style="position: absolute; width: 100%; height:60px ;background: #FFE363; padding-top: 20px; top: 20px; opacity: 0.4;"></div>
+          <div id='label' class="label">
+            <div class="content" id='inner_desired_drawing' class='text' style='font-size:30px;'>
+                畫出: 時鐘
             </div>
-
             <div class='timerBox'>
                 <p id='timer'>0:20</p>
             </div>
-
-            <div class='row'>
-                <p style='color:white;font-size:30px;margin:auto 40px;'>分數：<span id='fraction'>0</span></p></div>
+             <div class="content" style='width: 150px;'>分數：<span id='fraction'>0</span></div>
+            
             </div>
 
-        </div>
+          <div style="position: relative;" >
+            <div id='prediction'>...</div>
+            <canvas id='canvas'></canvas>
 
-        <div id='prediction' style="color:red;z-index:-10;">...</div>
+            <div class="game-canvas-content-left">
+              <div class="game-canvas-content-left-img">
+                <img src="./image/topic/circle.png" alt=""/>
+              </div>
+              <p >塗鴉：1/6</p>
+            </div>
+
+            <div class="game-canvas-content-right">
+              <div class="game-canvas-content-right-box">
+                <img src="./image/pencil.png" alt=""/>
+              </div>
+              <div class="game-canvas-content-right-box">
+              <img src="./image/eraser.png" alt=""/>
+            </div>
+            </div>
+          </div>
+      </div>
     </div>
 
     <!-- 結束頁面 -->
@@ -270,6 +286,18 @@
         </div>
     </div>
 
+  <script>
+          // 測試用畫面控制
+          $('#main').hide()
+          $('#game-canvas').css("display", "block")
+          $('#introduction_chinese').css("display", "none")
+          $('#introduction_english').css("display", "none")
+          $('#introduction_portuguese').css("display", "none")
+          $('#pin_code').css("display", "none")
+          $('#round-card').css("display", "none")
+          $('#end-card').css("display", "none")
+    </script>
+
     <script defer type="text/javascript">
         async function load_model() {
             model = await tf.loadLayersModel('./tf_model/model.json');
@@ -285,7 +313,6 @@
             labels = raw_labels
         });
         load_model()
-
     </script>
     <script defer src="scripts/rdp.js"></script>
     <script defer src="scripts/draw.js"></script>

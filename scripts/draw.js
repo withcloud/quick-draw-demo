@@ -201,7 +201,7 @@ function ev_canvas(ev) {
 }
 
 var Timer; // 每一題的計時器
-var start_timer_from = 20 // 每題時間
+var start_timer_from = 1 // 每題時間
 
 //For string formatting
 String.form = function (str, arr) {

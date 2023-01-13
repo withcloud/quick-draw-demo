@@ -1,5 +1,5 @@
 // 網絡地址
-const HOST = "http://127.0.0.1:3000"; //指定服務端口
+const HOST = "https://pincode-beta.vercel.app"; //指定服務端口
 let pinInput = ""; // pin碼值
 let local_user = {};// pin對象
 const scoresData = [];
@@ -23,6 +23,15 @@ const pages = {
     "end_card": 5
 }
 
+const imgSrc = [
+    "../image/topic/hand.png",
+    "../image/topic/circle.png",
+    "../image/topic/clock.png",
+    "../image/topic/parachute.png",
+    "../image/topic/microwave.png",
+    "../image/topic/drill.png",
+]
+
 window.option = 0//题目
 window.fractionNumber = 0 // 分數
 
@@ -39,38 +48,21 @@ function toggle_round_card(onlyOpen = false) {
     let inner_desired_drawing_txt = document.getElementById('inner_desired_drawing')
     let prediction_label = document.getElementById('prediction');
 
+
     let card = document.getElementById('round-card')
 
 
     if (active_page != pages.card && active_page != pages.about && active_page || onlyOpen) {// 顯示卡片
 
-        if (drawing_history.length > 20) {
-            drawing_history.splice(0, 1);
-        }
-
-        drawing_index = Math.floor(Math.random() * Object.keys(labels).length)
-        var i = 0
-        while (i < drawing_history.length) {
-            if (drawing_index == drawing_history[i]) {
-                drawing_index = Math.floor(Math.random() * Object.keys(labels).length)
-                i = -1
-            }
-            i++
-        }
-        drawing_history.push(drawing_index)
-
-        desired_drawing_txt.textContent = `第${window.option + 1}題：${labels[drawing_index]}`;
-        card.className = 'cover visible';
-
         // 题目累加
         window.option++
+
         if (window.option > 6) {//六題後到結束頁面
             game = document.getElementById('game-canvas')
             end_card = document.getElementById('end-card')
             main = document.getElementById('main')
-            main = document.getElementById('main')
             game.style.display = 'none'//隱藏遊戲
-            card.className = 'cover invisible'//隱藏卡片
+            card.style.display = 'none' //隱藏卡片
             main.style.display = 'none'  //隱藏開始頁面
             active_page = pages.end_card;
             end_card.style.display = 'block'//顯示結束頁面
@@ -105,12 +97,31 @@ function toggle_round_card(onlyOpen = false) {
                 $('#start-btn').text(`開始（${window.roundNum}）`)
                 if (window.roundNum <= 0) {
                     toggle_game_canvas()
+
                 }
             }, 1000)
         }
 
+        // 創建題目
+        drawing_index = Math.floor(Math.random() * 6)
+
+        // 題目去重
+        var i = 0
+        while (i < drawing_history.length) {
+            if (drawing_index == drawing_history[i]) {
+                drawing_index = Math.floor(Math.random() * 6)
+                i = -1
+            }
+            i++
+        }
+
+        drawing_history.push(drawing_index)
+
+        desired_drawing_txt.textContent = `第${window.option}題：${labels[drawing_index]}`;
+        card.className = 'cover visible';
+
         setTimeout(function () {
-            inner_desired_drawing_txt.textContent = 'Draw: ' + labels[drawing_index];
+            inner_desired_drawing_txt.textContent = '畫出: ' + labels[drawing_index];
 
             init()
             stop_drawing() //遊戲結束計時
@@ -131,6 +142,11 @@ function toggle_game_canvas() {
         toggle_round_card() // 關閉卡片
         active_page = pages.game;
         start_drawing() // 遊戲開始計時
+        let gameNumber = document.getElementById('game-canvas-content-left-number')
+        let gameImgSrc = document.getElementById('game-canvas-content-left-img-src')
+        // 切換樣板圖片訊息
+        gameNumber.textContent = window.option;
+        gameImgSrc.setAttribute("src", imgSrc[drawing_index])
     } else { // 關閉遊戲
         game = document.getElementById('game-canvas')
         game.style.display = 'none'
@@ -162,32 +178,6 @@ function enter_main() {//回車進入遊戲 清除繪畫歷史
 // 重新開始遊戲
 function again() {
     window.location.reload();//重新加載會有閃爍現象
-    // var end_card = document.getElementById('end-card')
-    // var main = document.getElementById('main')
-    // var fraction = document.getElementById('fraction');
-    // var prediction = document.getElementById('prediction');
-    // chinese = document.getElementById('introduction_chinese')
-    // english = document.getElementById('introduction_english')
-    // portuguese = document.getElementById('introduction_portuguese')
-    // pin_code = document.getElementById('pin_code')
-    // active_page = pages.main;//設置當前頁面
-    // main.style.display = 'block'
-    // end_card.style.display = 'none'
-    // clearInterval(window.endCarTimer) //清除結束頁面倒計時
-    // window.fractionNumber = 0 //重置得分
-    // fraction.textContent = window.fractionNumber
-    // prediction.style.zIndex = -10
-
-    // chinese.style.display = 'none'
-    // english.style.display = 'none'
-    // portuguese.style.display = 'none'
-    // clearInterval(window.languageCarTimer) //清除語言頁面倒計時
-
-    // pin_code.style.display = 'none'
-
-    // // 清空pin碼
-    // pinInput = ''
-    // local_user = {}
 }
 
 // 選擇語言

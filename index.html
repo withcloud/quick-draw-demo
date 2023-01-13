@@ -23,6 +23,7 @@
 <body>
     <!-- 開始頁面 -->
     <div id='main' style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
+      <div style="position: absolute; right:20px ; top: 20px; font-size: 30px; color: white; border: 1px solid white; padding: 5px 10px ; border-radius: 10px;">*建議使用 google chrome 瀏覽器.</div>
        <div id='main_title' class="main_title web" >你猜我畫</div>
         <img class='frame' id='non_intractive' src=assets/frame.svg alt=""></img>
          <div id='main_button' class="main_button">
@@ -35,7 +36,9 @@
     <!-- 中文簡介 -->
     <div id='introduction_chinese' class="introduction"  >
         <div style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
-            <div id='main_title' class="main_title web" >中文</div>
+            <div id='main_title' class="main_title web" >在這頁會介紹相關原理跟說明
+              讓用戶對數據科學技術有一定了解。
+              </div>
             <div id='main_button' class="main_button" style="justify-content: center;">
                 <button class='introduction_start' onclick="language_start()">開始</button>
             </div>
@@ -64,6 +67,9 @@
 
     <!-- 輸入PIN嗎頁面 -->
     <div id='pin_code' class="pin_code" style='display: none;'>
+      <div id="game-canvas-reset" class="game-canvas-delete" onclick="window.location.reload();">
+        <img  src="./image/delete.png" alt=""/>
+      </div>
         <div  style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
           <div
             class="w-full h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8"
@@ -167,7 +173,7 @@
                     class="block text-gray-700 font-medium mb-2 text-lg"
                     htmlFor="username"
                   >
-                    或是以新的用戶身份
+                    或是以新的用戶身份（請使用新用戶開始遊戲）
                   </label>
                 </div>
                 <div class="flex items-center justify-center">
@@ -294,11 +300,11 @@
   <script>
           // 測試用，用於修改單個畫面
           // $('#main').hide()
-          // $('#game-canvas').css("display", "block")
+          // $('#game-canvas').css("display", "none")
           // $('#introduction_chinese').css("display", "none")
           // $('#introduction_english').css("display", "none")
           // $('#introduction_portuguese').css("display", "none")
-          // $('#pin_code').css("display", "none")
+          // $('#pin_code').css("display", "block")
           // $('#round-card').css("display", "none")
           // $('#end-card').css("display", "none")
   </script>

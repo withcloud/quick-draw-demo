@@ -125,9 +125,8 @@ body {
   margin-right: -50%;
   transform: translate(-50%, -50%);
 
-  line-height: 202px;
   color: rgb(255, 255, 255);
-  font-size: 69px;
+  font-size: 40px;
 }
 
 #main_button{
@@ -142,7 +141,8 @@ body {
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  /* justify-content: space-between; */
 }
 
 .main_button button{
@@ -201,15 +201,6 @@ body {
   color: rgb(255, 255, 255);
   font-size: 50px;
 }
-
-
-#eChartsMain{
-   position: relative;
-    left: 200px;
-    top: 120px;
-    width: 400px;
-}
-
 
 #text {
   position: absolute;
@@ -280,31 +271,29 @@ body {
   Drawing window css
 */
 
-canvas {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-}
-
 .label {
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  background: #4b4453;
+  background: #FFD71F;
   width: 100%;
-  height: 150px;
-  border-radius: 0 0 55px 55px;
-
-  box-shadow: 9px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 130px;
+  border-radius: 20px 20px 0px 0px;
+  padding: 0px 120px;
 
   display: flex;
-  flex-direction: row;
-  justify-content: left;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  user-select: none;
+.label .content{
+  font-size:30px;
+  color:#E80052 ;
+  font-weight:bold
+}
+
+canvas {
+  width: 100%;
+  height:1000px ;
+  background-color: #FFFFFF;
+  border-radius: 0px 0px 20px 20px;
 }
 
 .center {
@@ -319,6 +308,7 @@ canvas {
 
   flex-direction: column;
 }
+
 .cover {
   background: #4d8076;
   position: fixed;
@@ -335,9 +325,11 @@ canvas {
 
   transition: top 0.7s cubic-bezier(0.42, 0, 0.20, 1);
 }
+
 .cover.invisible {
   top: -100%;
 }
+
 .cover.visible {
   top: 0;
 }
@@ -349,7 +341,27 @@ canvas {
   left: 0px;
   top: 0px;
   z-index: 50;
-  display: none;
+  background-color: #905C46;
+  padding: 100px 50px 30px ;
+  background: url("/image/shading.png") no-repeat ;
+  background-size: 100% 1280px;
+}
+
+.game-canvas-content{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;  
+}
+
+.game-canvas-content-clip{
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  top: -125px;
+  left: 0;
+  right: 0;
+  z-index: 5;
 }
 .cover.about {
   background: #4D4F80;
@@ -366,19 +378,13 @@ canvas {
   top: 0;
 }
 
-
 .timerBox {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
-  background: #00c0a3;
-  width: 140px;
+  background: #319CFF;
+  width: 200px;
   height: 68px;
-  border-radius: 28px;
+  border-radius: 10px;
 
-  box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 6px 0  rgba(0, 100, 193);
 
   font-family: "doodleFont";
   font-size: 29px;
@@ -436,8 +442,7 @@ canvas {
 
   cursor: pointer;
 
-  transition: background-color 0.5s cubic-bezier(0.09, 0.385, 0, 0.975),
-    transform 0.35s cubic-bezier(0.09, 0.385, 0, 0.975);
+  transition: background-color 0.5s cubic-bezier(0.09, 0.385, 0, 0.975),transform 0.35s cubic-bezier(0.09, 0.385, 0, 0.975);
 }
 
 .button:hover {
@@ -471,16 +476,15 @@ canvas {
 #prediction {
   position: absolute;
   left: 50%;
-
-  bottom: 41px;
+  bottom:20px;
   transform: translate(-50%, 0px);
 
   width: fit-content;
   height: 95px;
   background: #4b4453;
+  color: red;
 
   border-radius: 50px;
-
   box-shadow: 9px 8px 0 rgba(0, 0, 0, 0.2);
 
   display: flex;
@@ -489,6 +493,71 @@ canvas {
 
   font-family: "doodleFont";
   font-size: 38px;
-  user-select: none;
   padding: 0px 27px 0px 27px;
+}
+
+.game-canvas-content-left{
+  position: absolute;
+  left: 50px;
+  top: 20px;
+}
+
+.game-canvas-content-left-img{
+  width: 380px;
+  height: 560px;
+  border-radius: 15px;
+  background-color: #E4E4E4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-canvas-content-left-img img{
+  max-width: 300px;
+}
+
+.game-canvas-content-left p{
+  padding-top: 20px;
+  font-size: 30px;
+  text-align: center;
+  color: #666666;
+}
+
+.game-canvas-content-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 120px;
+  height: 500px;
+  background-color: #f1eeee;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.game-canvas-content-right-box{
+  width:85px;
+  height: 85px;
+  font-size: 100px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 0  rgba(218, 217, 217);
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+.game-canvas-content-right-box img{
+  width: 100%;
+  height: 100%;
+}
+.game-canvas-delete{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 40px;
+  right: 15px;
+  z-index: 9999;
+  background-color: #319CFF;
+  border-radius: 50%;
+  cursor: pointer;
 }

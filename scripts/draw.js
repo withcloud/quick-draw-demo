@@ -234,6 +234,7 @@ String.prototype.$ = function () {
     return String.form(this, Array.prototype.slice.call(arguments));
 }
 
+// 初始時間
 function init() {
     var timer = document.getElementById('timer');
     timer.textContent = '%02d'.$(0) + ':%02d'.$(start_timer_from);
@@ -286,7 +287,8 @@ function start_drawing() {
         }
 
         timer.textContent = '%02d'.$(time_min) + ':%02d'.$(0);
-        toggle_round_card()
+
+        toggle_round_card();
 
         clearInterval(Timer);
     }, 1000)
@@ -299,6 +301,17 @@ function start_drawing() {
     //I've put these event on the window so if the mouse outside the canvas or the web screen the event still will return mouse events
     window.addEventListener('mousemove', ev_canvas, true);
     window.addEventListener('mouseup', ev_canvas, false);
+
+
+
+    // 橡皮檫功能
+    document.getElementById("rubber").addEventListener('click', function () {
+        PEN.clear()
+    }, false);
+    // 返回首頁功能
+    document.getElementById("game-canvas-reset").addEventListener('click', function () {
+        again()
+    }, false);
 }
 
 function startPrediction(PEN, img_size, stroke_width = 1) {
@@ -316,7 +329,6 @@ function startPrediction(PEN, img_size, stroke_width = 1) {
     ctx.lineWidth = stroke_width
     ctx.strokeStyle = "white";
 
-
     PEN.predictionCanvas = predictionCanvas
 
 }
@@ -327,8 +339,6 @@ function predict(empty_canvas, strokes) {
     let img_input = image_preprocessing(empty_canvas, strokes)
     var input = tf.tensor(img_input, [1, 28, 28, 1]);
 
-
-
     let predictions = model.predict(input);
     predictions = predictions.dataSync()
 
@@ -337,12 +347,10 @@ function predict(empty_canvas, strokes) {
 
     if (accuracy < .5)
         prediction_index = -1
-
-
     return prediction_index;
 }
-function image_preprocessing(temp_canvas, strokes) {
 
+function image_preprocessing(temp_canvas, strokes) {
 
     let w = temp_canvas.width, h = temp_canvas.height
 
@@ -373,8 +381,6 @@ function image_preprocessing(temp_canvas, strokes) {
     //Offsetting the points to the center
     offsetx = Math.abs(w / 2 - (points_width / 2))
     offsety = Math.abs(h / 2 - (points_height / 2))
-
-
 
     let ctx = temp_canvas.getContext('2d')
     ctx.beginPath();
@@ -470,4 +476,6 @@ function max_min(strokes) {
 
     return [max_x, min_x, max_y, min_y]
 }
+
+
 

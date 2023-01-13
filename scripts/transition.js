@@ -1,5 +1,5 @@
 // 網絡地址
-const HOST = "http://127.0.0.1:3000"; //指定服務端口
+const HOST = "https://pincode-beta.vercel.app"; //指定服務端口
 let pinInput = ""; // pin碼值
 let local_user = {};// pin對象
 const scoresData = [];
@@ -23,6 +23,15 @@ const pages = {
     "end_card": 5
 }
 
+const imgSrc = [
+    "../image/topic/hand.png",
+    "../image/topic/circle.png",
+    "../image/topic/clock.png",
+    "../image/topic/parachute.png",
+    "../image/topic/microwave.png",
+    "../image/topic/drill.png",
+]
+
 window.option = 0//题目
 window.fractionNumber = 0 // 分數
 
@@ -38,6 +47,8 @@ function toggle_round_card(onlyOpen = false) {
     let desired_drawing_txt = document.getElementById('desired_drawing')
     let inner_desired_drawing_txt = document.getElementById('inner_desired_drawing')
     let prediction_label = document.getElementById('prediction');
+    let gameNumber = document.getElementById('game-canvas-content-left-number')
+    let gameImgSrc = document.getElementById('game-canvas-content-left-img-src')
 
     let card = document.getElementById('round-card')
 
@@ -48,22 +59,30 @@ function toggle_round_card(onlyOpen = false) {
             drawing_history.splice(0, 1);
         }
 
-        drawing_index = Math.floor(Math.random() * Object.keys(labels).length)
+
+        drawing_index = Math.floor(Math.random() * 6)
+
         var i = 0
         while (i < drawing_history.length) {
             if (drawing_index == drawing_history[i]) {
-                drawing_index = Math.floor(Math.random() * Object.keys(labels).length)
+                drawing_index = Math.floor(Math.random() * 6)
                 i = -1
             }
             i++
         }
+
         drawing_history.push(drawing_index)
 
         desired_drawing_txt.textContent = `第${window.option + 1}題：${labels[drawing_index]}`;
         card.className = 'cover visible';
 
+        gameNumber.textContent = window.option + 1;
+
+        gameImgSrc.setAttribute("src", imgSrc[drawing_index])
+
         // 题目累加
         window.option++
+        console.log("題目編號", window.option)
         if (window.option > 6) {//六題後到結束頁面
             game = document.getElementById('game-canvas')
             end_card = document.getElementById('end-card')

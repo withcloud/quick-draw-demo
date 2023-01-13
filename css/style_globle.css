@@ -511,6 +511,10 @@ canvas {
   align-items: center;
 }
 
+.game-canvas-content-left-img img{
+  max-width: 300px;
+}
+
 .game-canvas-content-left p{
   padding-top: 20px;
   font-size: 30px;
@@ -544,4 +548,14 @@ canvas {
 .game-canvas-content-right-box img{
   width: 100%;
   height: 100%;
+}
+.game-canvas-delete{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 40px;
+  right: 15px;
+  z-index: 9999;
+  background-color: #319CFF;
+  border-radius: 50%;
 }

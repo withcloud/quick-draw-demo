@@ -27,8 +27,8 @@
         <img class='frame' id='non_intractive' src=assets/frame.svg alt=""></img>
          <div id='main_button' class="main_button">
              <button onclick="language_game(1)">中文</button>
-             <button onclick="language_game(2)">english</button>
-             <button onclick="language_game(3)">portugues</button>
+             <button onclick="language_game(2)">English</button>
+             <button onclick="language_game(3)">Portugues</button>
          </div>
     </div>
 
@@ -210,6 +210,11 @@
     
     <!-- 遊戲頁面 -->
     <div id='game-canvas' class='game-canvas' style='display: none;' >
+
+      <div id="game-canvas-reset" class="game-canvas-delete" >
+        <img  src="./image/delete.png" alt=""/>
+      </div>
+
       <div class="game-canvas-content" style="z-index: 1000;" >
         <div class="game-canvas-content-clip">
             <img src="./image/clip.png" alt=""/>
@@ -233,9 +238,9 @@
 
             <div class="game-canvas-content-left">
               <div class="game-canvas-content-left-img">
-                <img src="./image/topic/circle.png" alt=""/>
+                <img id="game-canvas-content-left-img-src" src="./image/topic/circle.png" alt=""/>
               </div>
-              <p >塗鴉：1/6</p>
+              <p >塗鴉：<span id="game-canvas-content-left-number">1</span>/6</p>
             </div>
 
             <div class="game-canvas-content-right">
@@ -288,15 +293,14 @@
 
   <script>
           // 測試用畫面控制
-          $('#main').hide()
-          $('#game-canvas').css("display", "block")
-          $('#introduction_chinese').css("display", "none")
-          $('#introduction_english').css("display", "none")
-          $('#introduction_portuguese').css("display", "none")
-          $('#pin_code').css("display", "none")
-          $('#round-card').css("display", "none")
-          $('#end-card').css("display", "none")
-
+          // $('#main').hide()
+          // $('#game-canvas').css("display", "block")
+          // $('#introduction_chinese').css("display", "none")
+          // $('#introduction_english').css("display", "none")
+          // $('#introduction_portuguese').css("display", "none")
+          // $('#pin_code').css("display", "none")
+          // $('#round-card').css("display", "none")
+          // $('#end-card').css("display", "none")
   </script>
 
     <script defer type="text/javascript">

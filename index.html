@@ -23,7 +23,7 @@
 <body>
     <!-- 開始頁面 -->
     <div id='main' style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
-      <div style="position: absolute; right:20px ; top: 20px; font-size: 30px; color: white; border: 1px solid white; padding: 5px 10px ; border-radius: 10px;">*建議使用 google chrome 瀏覽器.</div>
+      <div style="position: absolute; right:20px ; top: 20px; font-size: 30px;  color: white; border: 1px solid white; padding: 5px 10px ; border-radius: 10px;">*建議使用 google chrome 瀏覽器.</div>
        <div id='main_title' class="main_title web" >你猜我畫</div>
         <img class='frame' id='non_intractive' src=assets/frame.svg alt=""></img>
          <div id='main_button' class="main_button">
@@ -66,8 +66,8 @@
     </div>
 
     <!-- 輸入PIN嗎頁面 -->
-    <div id='pin_code' class="pin_code" style='display: none;'>
-      <div id="game-canvas-reset" class="game-canvas-delete" onclick="window.location.reload();">
+    <div id='pin_code' class="pin_code" style='display: none; position: relative;'>
+      <div class="game-canvas-delete" onclick="window.location.reload();">
         <img  src="./image/delete.png" alt=""/>
       </div>
         <div  style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
@@ -199,7 +199,7 @@
             <div class='text' style="font-size:50px;margin-bottom: 17px;">
                 畫出
             </div>
-            <div id='desired_drawing' class='text' style="font-size:120px">
+            <div id='desired_drawing' class='text' style="font-size:100px">
                 時鐘
             </div>
             <div class='text' style="font-size:40px;margin-top:17px;">
@@ -265,7 +265,7 @@
 
     <!-- 結束頁面 -->
     <div id='end-card' style='display: none;' >
-        <div style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;">
+        <div style="width: 100%; height: 100%; background:#4B4453; position: fixed; left:0px;top:0px;z-index: 5;">
           <p class="endP">遊戲結束！</p>
           <p class="endP text-5xl my-4"  >繪畫總分數：<span id='totalScore'>0</span></p>
            <!-- 遊戲得分圖 -->
@@ -302,13 +302,13 @@
   <script>
           // 測試用，用於修改單個畫面
           // $('#main').hide()
-          // $('#game-canvas').css("display", "block")
+          // $('#game-canvas').css("display", "none")
           // $('#introduction_chinese').css("display", "none")
           // $('#introduction_english').css("display", "none")
           // $('#introduction_portuguese').css("display", "none")
           // $('#pin_code').css("display", "none")
           // $('#round-card').css("display", "none")
-          // $('#end-card').css("display", "none")
+          // $('#end-card').css("display", "block")
   </script>
 
     <script defer type="text/javascript">

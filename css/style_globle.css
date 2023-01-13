@@ -552,11 +552,11 @@ canvas {
 }
 .game-canvas-delete{
   position: absolute;
-  width: 100px;
-  height: 100px;
-  top: 40px;
+  width: 70px;
+  height: 70px;
+  top: 55px;
   right: 15px;
-  z-index: 9999;
+  z-index: 1;
   background-color: #319CFF;
   border-radius: 50%;
   cursor: pointer;

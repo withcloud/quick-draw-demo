@@ -215,13 +215,15 @@
     </div>
     
     <!-- 遊戲頁面 -->
-    <div id='game-canvas' class='game-canvas' style='display: none;' >
+    <div id='game-canvas' class='game-canvas' style='display: none;'>
+
+      <div style="position: absolute; left:50px ; top: 20px; font-size: 30px; color: white; border: 1px solid white; padding: 5px 10px ; border-radius: 10px;">玩法：在畫板中畫出題目的要求</div>
 
       <div id="game-canvas-reset" class="game-canvas-delete" >
         <img  src="./image/delete.png" alt=""/>
       </div>
 
-      <div class="game-canvas-content" style="z-index: 1000;" >
+      <div class="game-canvas-content"  >
         <div class="game-canvas-content-clip">
             <img src="./image/clip.png" alt=""/>
             <img src="./image/clip.png" alt=""/>
@@ -300,11 +302,11 @@
   <script>
           // 測試用，用於修改單個畫面
           // $('#main').hide()
-          // $('#game-canvas').css("display", "none")
+          // $('#game-canvas').css("display", "block")
           // $('#introduction_chinese').css("display", "none")
           // $('#introduction_english').css("display", "none")
           // $('#introduction_portuguese').css("display", "none")
-          // $('#pin_code').css("display", "block")
+          // $('#pin_code').css("display", "none")
           // $('#round-card').css("display", "none")
           // $('#end-card').css("display", "none")
   </script>

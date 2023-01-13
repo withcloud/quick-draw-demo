@@ -210,13 +210,14 @@
     
     <!-- 遊戲頁面 -->
     <div id='game-canvas' class='game-canvas' style='display: none;' >
-      <div class="game-canvas-content" >
+      <div class="game-canvas-content" style="z-index: 1000;" >
         <div class="game-canvas-content-clip">
             <img src="./image/clip.png" alt=""/>
             <img src="./image/clip.png" alt=""/>
          </div>
-          <div style="position: absolute; width: 100%; height:60px ;background: #FFE363; padding-top: 20px; top: 20px; opacity: 0.4;"></div>
-          <div id='label' class="label">
+         <div style="position: absolute; width: 95%; padding:0 auto; height:60px ;background: #FFE363;  top: 20px; opacity: 0.5; z-index: 1; "></div>
+         
+         <div id='label' class="label">
             <div class="content" id='inner_desired_drawing' class='text' style='font-size:30px;'>
                 畫出: 時鐘
             </div>
@@ -224,8 +225,7 @@
                 <p id='timer'>0:20</p>
             </div>
              <div class="content" style='width: 150px;'>分數：<span id='fraction'>0</span></div>
-            
-            </div>
+          </div>
 
           <div style="position: relative;" >
             <div id='prediction'>...</div>
@@ -239,12 +239,12 @@
             </div>
 
             <div class="game-canvas-content-right">
-              <div class="game-canvas-content-right-box">
+              <!-- <div class="game-canvas-content-right-box">
                 <img src="./image/pencil.png" alt=""/>
+              </div> -->
+              <div class="game-canvas-content-right-box" id="rubber" >
+                <img src="./image/eraser.png" alt=""/>
               </div>
-              <div class="game-canvas-content-right-box">
-              <img src="./image/eraser.png" alt=""/>
-            </div>
             </div>
           </div>
       </div>
@@ -296,7 +296,8 @@
           $('#pin_code').css("display", "none")
           $('#round-card').css("display", "none")
           $('#end-card').css("display", "none")
-    </script>
+
+  </script>
 
     <script defer type="text/javascript">
         async function load_model() {

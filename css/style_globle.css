@@ -538,6 +538,7 @@ canvas {
   border-radius: 10px;
   box-shadow: 2px 4px 0  rgba(218, 217, 217);
   margin-top: 50px;
+  cursor: pointer;
 }
 
 .game-canvas-content-right-box img{

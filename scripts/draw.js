@@ -201,7 +201,7 @@ function ev_canvas(ev) {
 }
 
 var Timer; // 每一題的計時器
-var start_timer_from = 1 // 每題時間
+var start_timer_from = 20 // 每題時間
 
 //For string formatting
 String.form = function (str, arr) {
@@ -299,6 +299,11 @@ function start_drawing() {
     //I've put these event on the window so if the mouse outside the canvas or the web screen the event still will return mouse events
     window.addEventListener('mousemove', ev_canvas, true);
     window.addEventListener('mouseup', ev_canvas, false);
+
+    // 橡皮檫功能
+    document.getElementById("rubber").addEventListener('click', function () {
+        PEN.clear()
+    }, false);
 }
 
 function startPrediction(PEN, img_size, stroke_width = 1) {
@@ -343,7 +348,6 @@ function predict(empty_canvas, strokes) {
 }
 function image_preprocessing(temp_canvas, strokes) {
 
-
     let w = temp_canvas.width, h = temp_canvas.height
 
     let size = max_min(strokes)
@@ -373,7 +377,6 @@ function image_preprocessing(temp_canvas, strokes) {
     //Offsetting the points to the center
     offsetx = Math.abs(w / 2 - (points_width / 2))
     offsety = Math.abs(h / 2 - (points_height / 2))
-
 
 
     let ctx = temp_canvas.getContext('2d')
@@ -470,4 +473,6 @@ function max_min(strokes) {
 
     return [max_x, min_x, max_y, min_y]
 }
+
+
 

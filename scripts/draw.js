@@ -234,6 +234,7 @@ String.prototype.$ = function () {
     return String.form(this, Array.prototype.slice.call(arguments));
 }
 
+// 初始時間
 function init() {
     var timer = document.getElementById('timer');
     timer.textContent = '%02d'.$(0) + ':%02d'.$(start_timer_from);
@@ -286,7 +287,8 @@ function start_drawing() {
         }
 
         timer.textContent = '%02d'.$(time_min) + ':%02d'.$(0);
-        toggle_round_card()
+
+        toggle_round_card();
 
         clearInterval(Timer);
     }, 1000)
@@ -299,6 +301,8 @@ function start_drawing() {
     //I've put these event on the window so if the mouse outside the canvas or the web screen the event still will return mouse events
     window.addEventListener('mousemove', ev_canvas, true);
     window.addEventListener('mouseup', ev_canvas, false);
+
+
 
     // 橡皮檫功能
     document.getElementById("rubber").addEventListener('click', function () {

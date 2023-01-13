@@ -47,49 +47,22 @@ function toggle_round_card(onlyOpen = false) {
     let desired_drawing_txt = document.getElementById('desired_drawing')
     let inner_desired_drawing_txt = document.getElementById('inner_desired_drawing')
     let prediction_label = document.getElementById('prediction');
-    let gameNumber = document.getElementById('game-canvas-content-left-number')
-    let gameImgSrc = document.getElementById('game-canvas-content-left-img-src')
+
 
     let card = document.getElementById('round-card')
 
 
     if (active_page != pages.card && active_page != pages.about && active_page || onlyOpen) {// 顯示卡片
 
-        if (drawing_history.length > 20) {
-            drawing_history.splice(0, 1);
-        }
-
-
-        drawing_index = Math.floor(Math.random() * 6)
-
-        var i = 0
-        while (i < drawing_history.length) {
-            if (drawing_index == drawing_history[i]) {
-                drawing_index = Math.floor(Math.random() * 6)
-                i = -1
-            }
-            i++
-        }
-
-        drawing_history.push(drawing_index)
-
-        desired_drawing_txt.textContent = `第${window.option + 1}題：${labels[drawing_index]}`;
-        card.className = 'cover visible';
-
-        gameNumber.textContent = window.option + 1;
-
-        gameImgSrc.setAttribute("src", imgSrc[drawing_index])
-
         // 题目累加
         window.option++
-        console.log("題目編號", window.option)
+
         if (window.option > 6) {//六題後到結束頁面
             game = document.getElementById('game-canvas')
             end_card = document.getElementById('end-card')
             main = document.getElementById('main')
-            main = document.getElementById('main')
             game.style.display = 'none'//隱藏遊戲
-            card.className = 'cover invisible'//隱藏卡片
+            card.style.display = 'none' //隱藏卡片
             main.style.display = 'none'  //隱藏開始頁面
             active_page = pages.end_card;
             end_card.style.display = 'block'//顯示結束頁面
@@ -124,9 +97,28 @@ function toggle_round_card(onlyOpen = false) {
                 $('#start-btn').text(`開始（${window.roundNum}）`)
                 if (window.roundNum <= 0) {
                     toggle_game_canvas()
+
                 }
             }, 1000)
         }
+
+        // 創建題目
+        drawing_index = Math.floor(Math.random() * 6)
+
+        // 題目去重
+        var i = 0
+        while (i < drawing_history.length) {
+            if (drawing_index == drawing_history[i]) {
+                drawing_index = Math.floor(Math.random() * 6)
+                i = -1
+            }
+            i++
+        }
+
+        drawing_history.push(drawing_index)
+
+        desired_drawing_txt.textContent = `第${window.option}題：${labels[drawing_index]}`;
+        card.className = 'cover visible';
 
         setTimeout(function () {
             inner_desired_drawing_txt.textContent = '畫出: ' + labels[drawing_index];
@@ -150,6 +142,11 @@ function toggle_game_canvas() {
         toggle_round_card() // 關閉卡片
         active_page = pages.game;
         start_drawing() // 遊戲開始計時
+        let gameNumber = document.getElementById('game-canvas-content-left-number')
+        let gameImgSrc = document.getElementById('game-canvas-content-left-img-src')
+        // 切換樣板圖片訊息
+        gameNumber.textContent = window.option;
+        gameImgSrc.setAttribute("src", imgSrc[drawing_index])
     } else { // 關閉遊戲
         game = document.getElementById('game-canvas')
         game.style.display = 'none'

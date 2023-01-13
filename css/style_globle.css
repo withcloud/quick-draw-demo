@@ -554,8 +554,8 @@ canvas {
   position: absolute;
   width: 70px;
   height: 70px;
-  top: 50px;
-  right: 25px;
+  top: 55px;
+  right: 15px;
   z-index: 1;
   background-color: #319CFF;
   border-radius: 50%;

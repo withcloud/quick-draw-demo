@@ -27,8 +27,8 @@
         <img class='frame' id='non_intractive' src=assets/frame.svg alt=""></img>
          <div id='main_button' class="main_button">
              <button onclick="language_game(1)">中文</button>
-             <button onclick="language_game(2)">English</button>
-             <button onclick="language_game(3)">Portugues</button>
+             <!-- <button onclick="language_game(2)">English</button>
+             <button onclick="language_game(3)">Portugues</button> -->
          </div>
     </div>
 
@@ -220,16 +220,16 @@
             <img src="./image/clip.png" alt=""/>
             <img src="./image/clip.png" alt=""/>
          </div>
-         <div style="position: absolute; width: 95%; padding:0 auto; height:60px ;background: #FFE363;  top: 20px; opacity: 0.5; z-index: 1; "></div>
+         <div style="position: absolute;  height:60px ;background: #FFE363;  top: 20px; left: 20px; right: 20px; opacity: 0.5; z-index: 1;  "></div>
          
          <div id='label' class="label">
-            <div class="content" id='inner_desired_drawing' class='text' style='font-size:30px;'>
+            <div class="content" id='inner_desired_drawing' class='text' style='font-size:30px; z-index: 5;'>
                 畫出: 時鐘
             </div>
-            <div class='timerBox'>
+            <div class='timerBox' style=" z-index: 5;">
                 <p id='timer'>0:20</p>
             </div>
-             <div class="content" style='width: 150px;'>分數：<span id='fraction'>0</span></div>
+             <div class="content" style='width: 150px;  z-index: 5;'>分數：<span id='fraction'>0</span></div>
           </div>
 
           <div style="position: relative;" >

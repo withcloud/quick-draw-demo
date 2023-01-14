@@ -44,6 +44,8 @@ function toggle_round_card(onlyOpen = false) {
     clearInterval(window.roundTimer)//清除卡片倒計時
     clearInterval(window.languageCarTimer) //清除語言頁面倒計時
 
+
+    let desired_drawing_title = document.getElementById('desired_drawing_title')
     let desired_drawing_txt = document.getElementById('desired_drawing')
     let inner_desired_drawing_txt = document.getElementById('inner_desired_drawing')
     let prediction_label = document.getElementById('prediction');
@@ -117,7 +119,8 @@ function toggle_round_card(onlyOpen = false) {
 
         drawing_history.push(drawing_index)
 
-        desired_drawing_txt.textContent = `第${window.option}題：${labels[drawing_index]}`;
+        desired_drawing_title.textContent = `第${window.option}題`
+        desired_drawing_txt.textContent = `畫出：${labels[drawing_index]}`;
         card.className = 'cover visible';
 
         setTimeout(function () {

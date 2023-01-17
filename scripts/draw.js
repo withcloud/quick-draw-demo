@@ -131,7 +131,7 @@ function Pen(new_context, w, h) {
             window.fractionNumber += 100
             fraction.textContent = window.fractionNumber
             // 語言頁面倒計時
-            alert(`華對了，畫出了【${labels[drawing_index]}】，繼續繪畫`)
+            alert(`畫對了，畫出了【${labels[drawing_index]}】，繼續繪畫`)
             toggle_round_card(onlyOpen = true)// 開啟關閉題目卡片
         }
 

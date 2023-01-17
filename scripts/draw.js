@@ -130,8 +130,9 @@ function Pen(new_context, w, h) {
             // 計算分數（計分）
             window.fractionNumber += 100
             fraction.textContent = window.fractionNumber
-            // 開啟關閉題目卡片
-            toggle_round_card()
+            // 語言頁面倒計時
+            alert(`華對了，畫出了【${labels[drawing_index]}】，繼續繪畫`)
+            toggle_round_card(onlyOpen = true)// 開啟關閉題目卡片
         }
 
     }
@@ -301,8 +302,6 @@ function start_drawing() {
     //I've put these event on the window so if the mouse outside the canvas or the web screen the event still will return mouse events
     window.addEventListener('mousemove', ev_canvas, true);
     window.addEventListener('mouseup', ev_canvas, false);
-
-
 
     // 橡皮檫功能
     document.getElementById("rubber").addEventListener('click', function () {

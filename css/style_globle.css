@@ -291,7 +291,6 @@ body {
 
 canvas {
   width: 100%;
-  height:1000px ;
   background-color: #FFFFFF;
   border-radius: 0px 0px 20px 20px;
 }
@@ -335,20 +334,16 @@ canvas {
 }
 
 .game-canvas {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0px;
-  top: 0px;
   z-index: 50;
-  background-color: #905C46;
   padding: 100px 50px 30px ;
-  background: url("/image/shading.png") no-repeat ;
-  background-size: 100% 1280px;
+  max-width: 1024px;
+  min-width: 1024px;
+  width: 1024px;
+  margin: auto;
+  background-color: #905C46;
 }
 
 .game-canvas-content{
-  width: 100%;
   display: flex;
   flex-direction: column;
   position: relative;  
@@ -358,10 +353,13 @@ canvas {
   position: absolute;
   display: flex;
   justify-content: space-around;
-  top: -125px;
+  top: -100px;
   left: 0;
   right: 0;
   z-index: 5;
+}
+.game-canvas-content-clip img{
+  width: 200px;
 }
 .cover.about {
   background: #4D4F80;
@@ -496,44 +494,18 @@ canvas {
   padding: 0px 27px 0px 27px;
 }
 
-.game-canvas-content-left{
-  position: absolute;
-  left: 50px;
-  top: 20px;
-}
-
-.game-canvas-content-left-img{
-  width: 380px;
-  height: 560px;
-  border-radius: 15px;
-  background-color: #E4E4E4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.game-canvas-content-left-img img{
-  max-width: 300px;
-}
-
-.game-canvas-content-left p{
-  padding-top: 20px;
-  font-size: 30px;
-  text-align: center;
-  color: #666666;
-}
-
 .game-canvas-content-right {
   position: absolute;
   right: 0;
   top: 0;
   width: 120px;
-  height: 500px;
+  padding-bottom: 20px;
   background-color: #f1eeee;
   display: flex;
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
+
 }
 
 .game-canvas-content-right-box{
@@ -550,14 +522,28 @@ canvas {
   width: 100%;
   height: 100%;
 }
+
+.pin_code_delete{
+  width: 85px;
+  height: 85px;  
+  background-color: #319CFF;  
+  position: absolute;
+  top:20px;
+  right:20px;
+  z-index: 1; 
+  border-radius: 50%; 
+  cursor: pointer;
+}
+
 .game-canvas-delete{
   position: absolute;
-  width: 70px;
-  height: 70px;
-  top: 55px;
-  right: 15px;
-  z-index: 1;
+  width: 85px;
+  height: 85px;
+  top:-40px;
+  right:-40px;
+  z-index: 5;
   background-color: #319CFF;
   border-radius: 50%;
   cursor: pointer;
 }
+

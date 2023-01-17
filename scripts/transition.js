@@ -41,6 +41,7 @@ var drawing_index = -1
 var drawing_history = []
 
 function toggle_round_card(onlyOpen = false) {
+  
     clearInterval(window.roundTimer)//清除卡片倒計時
     clearInterval(window.languageCarTimer) //清除語言頁面倒計時
 
@@ -50,12 +51,8 @@ function toggle_round_card(onlyOpen = false) {
     let inner_desired_drawing_txt = document.getElementById('inner_desired_drawing')
     let prediction_label = document.getElementById('prediction');
 
-
     let card = document.getElementById('round-card')
-
-
     if (active_page != pages.card && active_page != pages.about && active_page || onlyOpen) {// 顯示卡片
-
         // 题目累加
         window.option++
 
@@ -99,19 +96,18 @@ function toggle_round_card(onlyOpen = false) {
                 $('#start-btn').text(`開始（${window.roundNum}）`)
                 if (window.roundNum <= 0) {
                     toggle_game_canvas()
-
                 }
             }, 1000)
         }
-
-        // 創建題目
-        drawing_index = Math.floor(Math.random() * 6)
+ 
+        // 創建題目Object.keys(labels).length
+        drawing_index = Math.floor(Math.random() *Object.keys(labels).length )
 
         // 題目去重
         var i = 0
         while (i < drawing_history.length) {
             if (drawing_index == drawing_history[i]) {
-                drawing_index = Math.floor(Math.random() * 6)
+                drawing_index = Math.floor(Math.random() *Object.keys(labels).length)
                 i = -1
             }
             i++
@@ -131,10 +127,10 @@ function toggle_round_card(onlyOpen = false) {
         }, 250)
 
         active_page = pages.card;
-    }
-    else {// 關閉卡片
+    }else {// 關閉卡片
         card.className = 'cover invisible'
         prediction_label.style.zIndex = -10//繪畫中才顯示猜測內容
+        console.log("关闭卡片")
     }
 }
 
@@ -145,11 +141,6 @@ function toggle_game_canvas() {
         toggle_round_card() // 關閉卡片
         active_page = pages.game;
         start_drawing() // 遊戲開始計時
-        let gameNumber = document.getElementById('game-canvas-content-left-number')
-        let gameImgSrc = document.getElementById('game-canvas-content-left-img-src')
-        // 切換樣板圖片訊息
-        gameNumber.textContent = window.option;
-        gameImgSrc.setAttribute("src", imgSrc[drawing_index])
     } else { // 關閉遊戲
         game = document.getElementById('game-canvas')
         game.style.display = 'none'
@@ -336,8 +327,9 @@ const newStart = async () => {//pin新身份開始  建立用戶
                 "Content-Type": "application/json",
             },
         }).then((res) => res.json());
-
+     
         if (user.error) {
+         
             console.log('user error ')
             throw new Error(user.error);
         } else {
@@ -348,9 +340,9 @@ const newStart = async () => {//pin新身份開始  建立用戶
             }
             toggle_round_card() // 進入遊戲
         }
-
     } catch (error) {
-        console.log('catch error ')
+        console.log('catch error 1345 ')
+     
         // 顯示在 toast
         $.toast({
             heading: "Error",

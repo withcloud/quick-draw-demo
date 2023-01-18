@@ -41,15 +41,24 @@ var drawing_index = -1
 var drawing_history = []
 
 function toggle_round_card(onlyOpen = false) {
-  
+
     clearInterval(window.roundTimer)//清除卡片倒計時
     clearInterval(window.languageCarTimer) //清除語言頁面倒計時
-
 
     let desired_drawing_title = document.getElementById('desired_drawing_title')
     let desired_drawing_txt = document.getElementById('desired_drawing')
     let inner_desired_drawing_txt = document.getElementById('inner_desired_drawing')
     let prediction_label = document.getElementById('prediction');
+    chinese = document.getElementById('introduction_chinese')
+    english = document.getElementById('introduction_english')
+    portuguese = document.getElementById('introduction_portuguese')
+    pin_code = document.getElementById('pin_code');
+    main = document.getElementById('main');
+    main.style.display = 'none'
+    pin_code.style.display = 'none'
+    chinese.style.display = 'none'
+    english.style.display = 'none'
+    portuguese.style.display = 'none'
 
     let card = document.getElementById('round-card')
     if (active_page != pages.card && active_page != pages.about && active_page || onlyOpen) {// 顯示卡片
@@ -63,6 +72,7 @@ function toggle_round_card(onlyOpen = false) {
             game.style.display = 'none'//隱藏遊戲
             card.style.display = 'none' //隱藏卡片
             main.style.display = 'none'  //隱藏開始頁面
+
             active_page = pages.end_card;
             end_card.style.display = 'block'//顯示結束頁面
             stop_drawing() //遊戲結束計時
@@ -99,15 +109,15 @@ function toggle_round_card(onlyOpen = false) {
                 }
             }, 1000)
         }
- 
+
         // 創建題目Object.keys(labels).length
-        drawing_index = Math.floor(Math.random() *Object.keys(labels).length )
+        drawing_index = Math.floor(Math.random() * Object.keys(labels).length)
 
         // 題目去重
         var i = 0
         while (i < drawing_history.length) {
             if (drawing_index == drawing_history[i]) {
-                drawing_index = Math.floor(Math.random() *Object.keys(labels).length)
+                drawing_index = Math.floor(Math.random() * Object.keys(labels).length)
                 i = -1
             }
             i++
@@ -127,10 +137,10 @@ function toggle_round_card(onlyOpen = false) {
         }, 250)
 
         active_page = pages.card;
-    }else {// 關閉卡片
+    } else {// 關閉卡片
         card.className = 'cover invisible'
         prediction_label.style.zIndex = -10//繪畫中才顯示猜測內容
-        console.log("关闭卡片")
+
     }
 }
 
@@ -318,8 +328,8 @@ const userStart = async () => {//pin開始事件
 
 const newStart = async () => {//pin新身份開始  建立用戶
 
-    var startDirectlyBtn=document.getElementById('startDirectlyBtn')
-    startDirectlyBtn.innerText="正在創建新用戶..."
+    var startDirectlyBtn = document.getElementById('startDirectlyBtn')
+    startDirectlyBtn.innerText = "正在創建新用戶..."
     try {
         const user = await fetch(`${HOST}/api/user/create`, {
             method: "POST",
@@ -327,9 +337,9 @@ const newStart = async () => {//pin新身份開始  建立用戶
                 "Content-Type": "application/json",
             },
         }).then((res) => res.json());
-     
+
         if (user.error) {
-         
+
             console.log('user error ')
             throw new Error(user.error);
         } else {
@@ -342,7 +352,7 @@ const newStart = async () => {//pin新身份開始  建立用戶
         }
     } catch (error) {
         console.log('catch error 1345 ')
-     
+
         // 顯示在 toast
         $.toast({
             heading: "Error",

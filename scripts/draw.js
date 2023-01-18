@@ -22,7 +22,6 @@ function Pen(new_context, w, h) {
 
     var context = new_context;
 
-
     context.lineWidth = tool.stroke_width;
     context.lineJoin = 'round';
     context.lineCap = 'round';

@@ -293,6 +293,15 @@ for (let index = 1; index <= 12; index++) { // 給小鍵盤所有按鈕賦值
 }
 
 const userStart = async () => {//pin開始事件
+    if (!pinInput.trim()) {
+        $.toast({
+            heading: "Error",
+            text: "找不到該用戶",
+            showHideTransition: "fade",
+            icon: "error",
+        });
+        return null;
+    }
 
     // 獲取用戶
     try {
@@ -301,7 +310,10 @@ const userStart = async () => {//pin開始事件
             headers: {
                 "Content-Type": "application/json",
             },
-        }).then((res) => res.json());
+        }).then((res) => {
+            console.log(res)
+            return res.json()
+        });
         console.log(data)
         if (!data || !data?.id) {
             console.log('data error ')
